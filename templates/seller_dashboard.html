@@ -1,0 +1,117 @@
+ 
+{% extends "base_layout.html" %}
+
+{% block title %}Seller Dashboard{% endblock title %}
+
+{% block main_content %}
+
+<!-- Content Section -->
+<section class="content-section m-3" >
+    <h1 class="text text-center">Seller Dashboard</h1>
+    <table class="table">     
+        <tr>
+        <td class="table-active">Order No.</td>
+        <td class="table-active">Name</td>
+        <td class="table-active">Quantity</td>
+        <td class="table-active">Price</td>
+        <td class="table-active">Action</td>
+        <td class="table-active">Remark</td>
+        </tr>
+        {% for data in orders_list  %}
+        <tr>
+          <td>{{data.order.order_no}}</th>
+          <td >{{data.order.name}}</td>
+          <td>{{data.order.quantity}}</td>
+          <td>{{data.order.price}}</td>
+          <td>
+              {% if data.seller_action is None %}
+              <button  name="accept" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptModal{{data.order.id}}" >Accept</button>
+              <!-- Button trigger modal -->
+                {{data.seller_action}}
+              <button type="submit" name="reject" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#RejectModal{{data.order.id}}">Reject</button>
+              {% elif  data.seller_action is 1 %}
+                <span class="text text-success"> Accepted </span>
+              {% elif data.seller_action is 2 %}
+                <span class="text text-danger"> Rejected </span>
+              {% endif %}
+              
+              <!--Accept Modal  start-->
+              <div class="modal fade" id="acceptModal{{data.order.id}}" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                      <h5 class="modal-title" id="acceptModalLabel">Are you sure accept this order?</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form method="POST" >
+                          {% csrf_token %}
+                      <div class="modal-body">
+                      
+                      </div>
+                      <div class="modal-footer">
+                      <input type="hidden" name="order{{data.order.id}}" value="{{data.order.id}}">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" name="btn_acsubmit" value="{{data.order.id}}">Accept</button>
+                      </div>
+                      </form>
+                  </div>
+                  </div>
+              </div>
+              <!--Accept Modal  end-->
+
+              
+              <!--Reject Modal  start-->
+              <div class="modal fade" id="RejectModal{{data.order.id}}" tabindex="-1" aria-labelledby="RejectModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                      <h5 class="modal-title" id="RejectModalLabel">Are you sure reject this order?</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form method="POST" id="iform">
+                          {% csrf_token %}
+                      <div class="modal-body">
+                      
+                      <label for="id_remark" class="form-label">Reason For Reject</label>
+                      <input type='text' class="form-control" required="true" name="remark{{data.order.id}}" id="id_remark{{data.order.id}}"/>
+                      </div>
+                      <div class="modal-footer">
+                          <input type="hidden" name="order{{data.order.id}}" value="{{data.order.id}}">    
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" name="btn_rjsubmit" value="{{data.order.id}}">Reject</button>
+                      </div>
+                      </form>
+                  </div>
+                  </div>
+              </div>
+              <!--Reject Modal  end-->
+          </td>
+          <td>{{data.remark}}</td>
+        </tr>
+        {% endfor %}
+      
+    </table>
+</section>
+
+{% endblock main_content %}
+
+{% block script %}
+<script >
+    jQuery('#iform').validate({
+  rules:{
+      order_no:"required",
+      name:"required",
+      quantity:"required",
+      price:"required",
+      pin:"required",
+      },
+   messages:{
+      order_no:"Please enter Order No", 
+      name:  "Please enter Name",
+      quantity: "Please enter Quantity",
+      price:"Please enter Price",
+      pin:"Please entet Pin",
+      },
+});
+   </script> 
+{% endblock script %}

@@ -1,0 +1,66 @@
+{% extends "base_layout.html" %}
+
+{% block title %}User Dashboard{% endblock title %}
+
+{% block main_content %}
+
+<!-- Content Section -->
+<section class="content-section m-3" >
+    <h1 class="text text-center">User Dashboard</h1>
+    <h6 class="text text-center"> <a href="/user_order_list">Orders List </a></h6>
+    <form class="row g-3" method="post" id="iform" >
+      {% csrf_token %}
+      <div class="col-md-6">
+        <label for="order_no" class="form-label">Order No.</label>
+        <input type="text" class="form-control" id="order_no" name="order_no">
+      </div>
+      <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name">
+      </div>
+
+      <div class="col-md-4">
+          <label for="quantity" class="form-label">Quantity</label>
+          <input type="number" class="form-control" step="1" id="quantity" name="quantity">
+        </div>
+        <div class="col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="form-control" id="price" name="price">
+        </div>
+
+        <div class="col-md-4">
+          <label for="pin" class="form-label">Pin</label>
+          <input type="text" class="form-control" id="pin" name="pin">
+        </div>
+
+      <div class="col-12" align='center'>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+  </form>
+</section>
+
+{% endblock main_content %}
+
+{% block script %}
+<script >
+    jQuery('#iform').validate({
+    rules:{
+      order_no:"required",
+      name:"required",
+        address:"required",
+        pin:"required",
+        quantity:"required",
+        price:"required",
+        },
+   messages:{
+    order_no:"Please enter Order No.",
+    name:"Please enter Name",
+    address:"Please enter Address",
+    pin:"Please enter Pin",
+      quantity:"Please enter Quantity without decimal point", 
+      price:  "Please enter price",
+      
+      },
+});
+   </script> 
+{% endblock script %}

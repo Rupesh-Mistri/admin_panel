@@ -1,0 +1,46 @@
+{% extends "base_layout.html" %}
+
+{% block title %}Index{% endblock title %}
+
+{% block main_content %}
+<!-- Hero Section -->
+<section class="hero text-center">
+  <div class="container">
+    <h1>Welcome to Admin Panel</h1>
+    
+    
+  </div>
+</section>
+
+<!-- Content Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row text-center">
+
+      <div class="col-lg-6 mb-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">User Login</h5>
+            <p class="card-text">Click below button if you want to login as user.</p>
+            <a href="/user_login" class="btn btn-outline-primary">Click</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Seller Login</h5>
+            <p class="card-text">Click below button if you want to login as seller.</p>
+            <a href="/seller_login" class="btn btn-outline-primary">Click</a>
+          </div>
+        </div>
+      </div>
+
+ 
+
+    </div>
+  </div>
+</section>
+
+{% endblock main_content %}

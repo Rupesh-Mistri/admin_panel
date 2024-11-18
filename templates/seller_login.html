@@ -1,0 +1,51 @@
+{% extends "base_layout.html" %}
+
+{% block title %}Seller Login{% endblock title %}
+
+{% block main_content %}
+
+<!-- Content Section -->
+<section class="content-section m-3" >
+    <h1 class="text text-center">Seller Login</h1>
+    <div class="container">
+      <div class="row justify-content-center">
+    <form  method="post" id="iform" >
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
+          <a href="/seller_signup"> Sign Up</a>
+
+        <div class="col-12" align='center'>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    
+    </form>
+  </div>
+</section>
+
+{% endblock main_content %}
+
+{% block script %}
+<script >
+    jQuery('#iform').validate({
+  rules:{
+      username:"required",
+      password:"required",
+      
+      },
+   messages:{
+      username:"Please enter Username", 
+      password:  "Please enter Name",
+      
+      },
+});
+   </script> 
+{% endblock script %}

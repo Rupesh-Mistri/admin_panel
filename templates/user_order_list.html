@@ -1,0 +1,62 @@
+ 
+{% extends "base_layout.html" %}
+
+{% block title %}Order List{% endblock title %}
+
+{% block main_content %}
+
+<!-- Content Section -->
+<section class="content-section m-3" >
+    <table class="table">     
+        <tr>
+        <td class="table-active">Order No.</td>
+        <td class="table-active">Name</td>
+        <td class="table-active">Quantity</td>
+        <td class="table-active">Price</td>
+        <td class="table-active">Action Done By Seller</td>
+        <td class="table-active">Remark</td>
+        </tr>
+        {% for data in orders_list  %}
+        <tr>
+          <td>{{data.order.order_no}}</th>
+          <td >{{data.order.name}} </td>
+          <td>{{data.order.quantity}}</td>
+          <td>{{data.order.price}}</td>
+          <td>
+              {% if data.seller_action is None %}
+                <span class="text text-primary">Pending </span>
+              {% elif  data.seller_action is 1 %}
+              <span class="text text-success"> Accepted </span>
+              {% elif data.seller_action is 2 %}
+              <span class="text text-danger"> Rejected </span>
+              {% endif %}
+          </td>
+          <td>{{data.remark}}</td>
+        </tr>
+        {% endfor %}
+      
+    </table>
+</section>
+
+{% endblock main_content %}
+
+{% block script %}
+<script >
+    jQuery('#iform').validate({
+  rules:{
+      order_no:"required",
+      name:"required",
+      quantity:"required",
+      price:"required",
+      pin:"required",
+      },
+   messages:{
+      order_no:"Please enter Order No", 
+      name:  "Please enter Name",
+      quantity: "Please enter Quantity",
+      price:"Please enter Price",
+      pin:"Please entet Pin",
+      },
+});
+   </script> 
+{% endblock script %}
